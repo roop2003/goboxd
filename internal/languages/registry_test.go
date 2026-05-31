@@ -14,9 +14,6 @@ func TestLoadDefaultRegistry(t *testing.T) {
 	if _, ok := registry.Get("cpp"); !ok {
 		t.Fatal("expected cpp language to be configured")
 	}
-	if _, ok := registry.Get("java"); !ok {
-		t.Fatal("expected java language to be configured")
-	}
 }
 
 func TestNewRegistryRejectsDuplicateIDs(t *testing.T) {
@@ -32,9 +29,9 @@ func TestNewRegistryRejectsDuplicateIDs(t *testing.T) {
 func TestNewRegistryRejectsUnknownStrategy(t *testing.T) {
 	_, err := NewRegistry(Config{Languages: []Language{
 		{
-			ID:                     "java",
+			ID:                     "request-file",
 			SourceFilenameStrategy: "from_path",
-			Run:                    &Command{Cmd: "/usr/bin/java"},
+			Run:                    &Command{Cmd: "/bin/true"},
 		},
 	}})
 	if err == nil {

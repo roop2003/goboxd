@@ -33,17 +33,6 @@ func TestRunCPP(t *testing.T) {
 	assertAcceptedRun(t, body)
 }
 
-func TestRunJava(t *testing.T) {
-	body := `{
-		"language": "java",
-		"source_filename": "Main.java",
-		"artifact_filename": "Main",
-		"source": "import java.io.BufferedReader;\nimport java.io.InputStreamReader;\n\npublic class Main {\n    public static void main(String[] args) throws Exception {\n        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));\n        String name = reader.readLine();\n        System.out.println(\"Hello, \" + name + \"!\");\n    }\n}\n",
-		"tests": [{"stdin": "Ada\n", "expected_stdout": "Hello, Ada!\n"}]
-	}`
-	assertAcceptedRun(t, body)
-}
-
 func assertAcceptedRun(t *testing.T, body string) {
 	t.Helper()
 

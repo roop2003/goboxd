@@ -11,19 +11,31 @@ func TestValidateRequest(t *testing.T) {
 	if err != nil {
 		t.Fatalf("load default registry: %v", err)
 	}
+	requestFilenameRegistry, err := languages.NewRegistry(languages.Config{Languages: []languages.Language{
+		{
+			ID:                       "request-file",
+			SourceFilenameStrategy:   languages.StrategyFromRequest,
+			ArtifactFilenameStrategy: languages.StrategyFromRequest,
+			Run:                      &languages.Command{Cmd: "/bin/true"},
+		},
+	}})
+	if err != nil {
+		t.Fatalf("build request filename registry: %v", err)
+	}
 
 	stdin := ""
 	expected := "OK\n"
 	source := "print('OK')"
 	langPy := "py3"
 	langCPP := "cpp"
-	langJava := "java"
+	langRequestFile := "request-file"
 	badLang := "ruby"
 
 	tests := []struct {
-		name string
-		req  Request
-		code string
+		name     string
+		req      Request
+		registry *languages.Registry
+		code     string
 	}{
 		{
 			name: "valid interpreted language",
@@ -52,23 +64,25 @@ func TestValidateRequest(t *testing.T) {
 			code: "unknown_language",
 		},
 		{
-			name: "java requires request filenames",
+			name: "configured language requires request filenames",
 			req: Request{
-				Language: &langJava,
+				Language: &langRequestFile,
 				Source:   &source,
 				Tests:    []Test{{Stdin: &stdin, ExpectedStdout: &expected}},
 			},
-			code: "missing_source_filename",
+			registry: requestFilenameRegistry,
+			code:     "missing_source_filename",
 		},
 		{
 			name: "reject path traversal filename",
 			req: Request{
-				Language:       &langJava,
+				Language:       &langRequestFile,
 				Source:         &source,
-				SourceFilename: "../Main.java",
+				SourceFilename: "../solution.txt",
 				Tests:          []Test{{Stdin: &stdin, ExpectedStdout: &expected}},
 			},
-			code: "invalid_filename",
+			registry: requestFilenameRegistry,
+			code:     "invalid_filename",
 		},
 		{
 			name: "reject disallowed flag",
@@ -93,7 +107,11 @@ func TestValidateRequest(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			err := ValidateRequest(tt.req, registry)
+			activeRegistry := registry
+			if tt.registry != nil {
+				activeRegistry = tt.registry
+			}
+			err := ValidateRequest(tt.req, activeRegistry)
 			if tt.code == "" {
 				if err != nil {
 					t.Fatalf("expected valid request, got %s: %s", err.Code, err.Message)

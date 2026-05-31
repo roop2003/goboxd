@@ -243,3 +243,25 @@ The AI checked the Dockerfile, Compose file, Makefile, routes, executor, tests, 
 
 **What we used / didn't use:**
 Used the audit to identify remaining verification steps. Did not mark Stage 1 complete because this environment cannot run Docker/Go and the working tree still has uncommitted changes.
+
+## 2026-05-31 · Fixing `make test` registry failures
+
+**Prompt:**
+`make test` failed because `TestLoadDefaultRegistry` expected Java to be configured, and Java validation tests got `unknown_language` instead of filename errors.
+
+**Response summary:**
+The AI inspected `config/languages.yaml` and found only `py3` and `cpp`; the Java block was missing from the canonical embedded config even though tests and samples expected it.
+
+**What we used / didn't use:**
+Restored the Java language block in `config/languages.yaml`. Kept the tests unchanged because they were catching a real config drift.
+
+## 2026-05-31 · Removing Java from Stage 1 scope
+
+**Prompt:**
+No, remove Java.
+
+**Response summary:**
+The AI removed Java from the configured language set and from the Stage 1 execution tests/samples. It also removed the Java runtime from the Docker image because Stage 1 only needs one interpreted and one compiled language.
+
+**What we used / didn't use:**
+Used `py3` and `cpp` as the supported Stage 1 languages. Kept filename-strategy validation coverage with a synthetic test language instead of Java.
