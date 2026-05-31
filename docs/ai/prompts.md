@@ -276,3 +276,14 @@ The AI aligned tests, API examples, and sample requests with the new configured 
 
 **What we used / didn't use:**
 Used `python` as the public language id while keeping `/usr/bin/python3` as the runtime command. Did not add a `py3` alias, because language ids must match the configured registry exactly.
+
+## 2026-05-31 · Documenting the HTTP framework choice
+
+**Prompt:**
+You may pick any Go HTTP framework: `net/http`, chi, echo, gin, whatever. Two-sentence justification in the README. Did we implement this?
+
+**Response summary:**
+The AI checked the router and README, confirmed the code uses Go's standard `net/http`, and added the missing two-sentence framework justification to the README.
+
+**What we used / didn't use:**
+Used `net/http` because the API surface is small and the standard library avoids another runtime dependency. Did not switch to chi, echo, or gin because the existing router already covers the required endpoints.

@@ -2,6 +2,8 @@
 
 goboxd is a Go HTTP service for compiling and running submitted code inside nsjail.
 
+HTTP framework choice: goboxd uses Go's standard `net/http` package. The required API is small (`GET /healthz` and `POST /run`), so the standard library keeps the server easy to audit and avoids an extra dependency.
+
 ## Getting started
 
 You need Docker with Compose v2. The host does not need Go, nsjail, or language toolchains.
