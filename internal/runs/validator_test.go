@@ -26,7 +26,7 @@ func TestValidateRequest(t *testing.T) {
 	stdin := ""
 	expected := "OK\n"
 	source := "print('OK')"
-	langPy := "py3"
+	langPy := "python"
 	langCPP := "cpp"
 	langRequestFile := "request-file"
 	badLang := "ruby"

@@ -1,6 +1,6 @@
 languages:
-  - id: py3
-    name: Python 3
+  - id: python
+    name: Python
     source_filename: solution.py
     run:
       cmd: /usr/bin/python3

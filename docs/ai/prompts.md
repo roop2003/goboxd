@@ -265,3 +265,14 @@ The AI removed Java from the configured language set and from the Stage 1 execut
 
 **What we used / didn't use:**
 Used `py3` and `cpp` as the supported Stage 1 languages. Kept filename-strategy validation coverage with a synthetic test language instead of Java.
+
+## 2026-05-31 · Renaming the Python language id
+
+**Prompt:**
+I changed the language from `py3` to `python`.
+
+**Response summary:**
+The AI aligned tests, API examples, and sample requests with the new configured language id.
+
+**What we used / didn't use:**
+Used `python` as the public language id while keeping `/usr/bin/python3` as the runtime command. Did not add a `py3` alias, because language ids must match the configured registry exactly.

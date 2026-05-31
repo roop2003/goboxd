@@ -14,9 +14,9 @@ import (
 	"github.com/thesouldev/goboxd/server"
 )
 
-func TestRunPython3(t *testing.T) {
+func TestRunPython(t *testing.T) {
 	body := `{
-		"language": "py3",
+		"language": "python",
 		"source": "name = input()\nprint(\"Hello, \" + name + \"!\")\n",
 		"tests": [{"stdin": "Ada\n", "expected_stdout": "Hello, Ada!\n"}]
 	}`

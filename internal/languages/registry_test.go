@@ -8,8 +8,8 @@ func TestLoadDefaultRegistry(t *testing.T) {
 		t.Fatalf("LoadDefaultRegistry() error = %v", err)
 	}
 
-	if _, ok := registry.Get("py3"); !ok {
-		t.Fatal("expected py3 language to be configured")
+	if _, ok := registry.Get("python"); !ok {
+		t.Fatal("expected python language to be configured")
 	}
 	if _, ok := registry.Get("cpp"); !ok {
 		t.Fatal("expected cpp language to be configured")
@@ -18,8 +18,8 @@ func TestLoadDefaultRegistry(t *testing.T) {
 
 func TestNewRegistryRejectsDuplicateIDs(t *testing.T) {
 	_, err := NewRegistry(Config{Languages: []Language{
-		{ID: "py3", SourceFilename: "solution.py", Run: &Command{Cmd: "/usr/bin/python3"}},
-		{ID: "py3", SourceFilename: "main.py", Run: &Command{Cmd: "/usr/bin/python3"}},
+		{ID: "python", SourceFilename: "solution.py", Run: &Command{Cmd: "/usr/bin/python3"}},
+		{ID: "python", SourceFilename: "main.py", Run: &Command{Cmd: "/usr/bin/python3"}},
 	}})
 	if err == nil {
 		t.Fatal("expected duplicate language id error")

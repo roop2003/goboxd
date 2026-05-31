@@ -1,5 +1,5 @@
 {
-  "language": "py3",
+  "language": "python",
   "source": "name = input()\nprint(\"Hello, \" + name + \"!\")\n",
   "tests": [
     {

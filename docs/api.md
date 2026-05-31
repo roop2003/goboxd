@@ -22,7 +22,7 @@ Example:
 
 ```json
 {
-  "language": "py3",
+  "language": "python",
   "source": "print(input().upper())",
   "tests": [
     {
