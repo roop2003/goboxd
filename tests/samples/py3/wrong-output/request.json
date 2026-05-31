@@ -1,0 +1,10 @@
+{
+  "language": "py3",
+  "source": "print(\"HI\")\n",
+  "tests": [
+    {
+      "stdin": "",
+      "expected_stdout": "HELLO\n"
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "status": "wrong_output",
+  "build": null,
+  "tests": [
+    {
+      "status": "wrong_output",
+      "stdout": "HI\n",
+      "stderr": "",
+      "duration_ms": 20,
+      "memory_peak_kb": 8192
+    }
+  ]
+}

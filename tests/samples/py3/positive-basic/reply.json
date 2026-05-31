@@ -1,0 +1,13 @@
+{
+  "status": "accepted",
+  "build": null,
+  "tests": [
+    {
+      "status": "accepted",
+      "stdout": "Hello, Ada!\n",
+      "stderr": "",
+      "duration_ms": 25,
+      "memory_peak_kb": 8192
+    }
+  ]
+}

@@ -1,0 +1,6 @@
+{
+  "error": {
+    "code": "unknown_language",
+    "message": "language is not configured"
+  }
+}

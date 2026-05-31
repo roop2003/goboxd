@@ -1,0 +1,10 @@
+{
+  "language": "py3",
+  "source": "name = input()\nprint(\"Hello, \" + name + \"!\")\n",
+  "tests": [
+    {
+      "stdin": "Ada\n",
+      "expected_stdout": "Hello, Ada!\n"
+    }
+  ]
+}
