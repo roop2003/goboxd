@@ -210,3 +210,36 @@ The AI fetched the spec and confirmed that the API contract and judging notes us
 
 **What we used / didn't use:**
 Used the correction and removed the `/runs` route, docs text, and test calls. Kept the internal package name `internal/runs` because it is an implementation package, not a public endpoint.
+
+## 2026-05-31 · Fixing Docker build failure from missing `go.sum`
+
+**Prompt:**
+Docker build failed during `go build` because `internal/languages/registry.go` imports `gopkg.in/yaml.v3`, but there was no `go.sum` entry.
+
+**Response summary:**
+The AI identified that `go.mod` declared the YAML dependency without a committed checksum file. It fetched the official Go checksum entry and updated the Dockerfile dependency layer to copy both `go.mod` and `go.sum` before `go mod download`.
+
+**What we used / didn't use:**
+Used the added `go.sum` file and the Dockerfile change `COPY go.mod go.sum ./`. Did not follow the error's suggested `go get github.com/thesouldev/goboxd/internal/languages` command because the issue was dependency metadata, not a new module dependency.
+
+## 2026-05-31 · Keeping the AI prompt log current
+
+**Prompt:**
+Don't forget to update the prompts used in the file in the entire project.
+
+**Response summary:**
+The AI treated the prompt log as a required deliverable and added entries for the latest repo-changing prompts.
+
+**What we used / didn't use:**
+Used this reminder to update `docs/ai/prompts.md` immediately after the Docker build fix. No code changes were needed for this prompt.
+
+## 2026-05-31 · Auditing Stage 1 readiness
+
+**Prompt:**
+Asked whether the repo meets the Stage 1 prototype requirements: Docker build/run, `/healthz` returns 200, `POST /run` runs one interpreted and one compiled language end-to-end, unit tests, readable README, and clean commit history.
+
+**Response summary:**
+The AI checked the Dockerfile, Compose file, Makefile, routes, executor, tests, git status, and recent commit history. It found that the implementation is mostly in place but still needs Docker/Go verification and a final commit for the latest changes.
+
+**What we used / didn't use:**
+Used the audit to identify remaining verification steps. Did not mark Stage 1 complete because this environment cannot run Docker/Go and the working tree still has uncommitted changes.
